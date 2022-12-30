@@ -21,6 +21,7 @@ pipeline {
         stage('Plan') {
             steps {
                 sh 'cd terraform'
+                sh 'pwd'
                 sh 'terraform init'
 
                 sh 'terraform plan -out tfplan'
