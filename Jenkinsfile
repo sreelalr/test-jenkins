@@ -21,9 +21,8 @@ pipeline {
             steps {
                 sh 'terraform init -upgrade'
 
-                sh 'terraform plan -out tfplan'
-                sh 'terraform show -no-color tfplan > tfplan.txt'
-                sh 'cat tfplan.txt'
+                sh 'terraform plan'
+                
             }
         }
     }
