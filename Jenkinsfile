@@ -20,10 +20,10 @@ pipeline {
         
         stage('Plan') {
             steps {
-                sh 'pwd'
-                sh 'terraform init -input=false'
+                sh 'cd terraform'
+                sh 'terraform init'
 
-                sh "terraform plan -out tfplan "
+                sh 'terraform plan -out tfplan'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
                 sh 'cat tfplan.txt'
             }
