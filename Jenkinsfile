@@ -10,10 +10,9 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                        dir("terraform")
-                        {
-                            git branch: "main", credentialsId: "git", url: "https://github.com/sreelalr/demo-tf.git"
-                        }
+                        
+                          git branch: "main", credentialsId: "git", url: "https://github.com/sreelalr/demo-tf.git"
+                        
                     }
                 }
             }
