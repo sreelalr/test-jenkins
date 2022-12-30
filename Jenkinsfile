@@ -20,8 +20,13 @@ pipeline {
         stage('Plan') {
             steps {
                 sh 'terraform init -upgrade'
-
-                sh 'terraform plan'
+                
+                sh 'terraform apply --auto-approve'
+                
+                time.sleep(120)
+                
+                sh 'terraform destroy --auto-approve'
+                
                 
             }
         }
