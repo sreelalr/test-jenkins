@@ -23,7 +23,7 @@ pipeline {
                 
                 sh 'terraform apply --auto-approve'
                 
-                time.sleep(120)
+                sleep(time: 60, unit: "SECONDS")
                 
                 sh 'terraform destroy --auto-approve'
                 
