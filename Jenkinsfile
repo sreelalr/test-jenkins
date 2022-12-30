@@ -19,7 +19,7 @@ pipeline {
         
         stage('Plan') {
             steps {
-                sh 'terraform init'
+                sh 'terraform init -upgrade'
 
                 sh 'terraform plan -out tfplan'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
