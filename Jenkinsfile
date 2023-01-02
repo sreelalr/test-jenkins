@@ -28,8 +28,11 @@ pipeline {
                 
                 //sh 'terraform destroy --auto-approve'
                 
-                sh 'python3 snapshot.py'
+                //sh 'python3 snapshot.py'
                 
+                sh 'python3 snapshot.py > snapshotIdentifier"
+                snapshotId = readFile(('snapshotIdentifier').trim()
+                print(snapshotId)
                 
             }
         }
