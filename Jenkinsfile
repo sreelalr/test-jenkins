@@ -24,8 +24,7 @@ pipeline {
                 sh 'terraform apply --auto-approve'
                 
                 sleep(time: 300, unit: "SECONDS")
-                sh 'python3 --version'
-                sh 'pip3 --version'
+              
                 
                 sh 'terraform destroy --auto-approve'
                 
