@@ -29,9 +29,10 @@ pipeline {
                 //sh 'terraform destroy --auto-approve'
                 
                 //sh 'python3 snapshot.py'
-                
-                def snapshotId = bat(script: 'python3 snapshot.py',returnStdout: true)
-                print(snapshotId)
+                script {
+                    def snapshotId = bat(script: 'python3 snapshot.py',returnStdout: true)
+                    print(snapshotId)
+                }    
                 
             }
         }
