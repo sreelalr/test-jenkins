@@ -19,15 +19,15 @@ pipeline {
         
         stage('Plan') {
             steps {
-                //sh 'terraform init -upgrade'
+                sh 'terraform init -upgrade'
                 
-                //sh 'terraform apply --auto-approve'
+                sh 'terraform apply --auto-approve'
                 
-                //sleep(time: 60, unit: "SECONDS")
+                sleep(time: 60, unit: "SECONDS")
                 
-                //sh 'terraform destroy --auto-approve'
+                sh 'terraform destroy --auto-approve'
                 
-                sh 'python3 snapshot.py'
+                //sh 'python3 snapshot.py'
                 
                 
             }
