@@ -30,7 +30,7 @@ pipeline {
                 
                 //sh 'python3 snapshot.py'
                 script {
-                    def snapshotId = bat(script: 'python3 snapshot.py',returnStdout: true)
+                    def snapshotId = sh(script: 'python3 snapshot.py',returnStdout: true)
                     print(snapshotId)
                 }    
                 
