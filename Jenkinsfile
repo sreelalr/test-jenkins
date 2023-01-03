@@ -56,6 +56,7 @@ pipeline {
                         credentialsId: "${params.awsProfile}"
                     ]]) {
                         sh 'cd infra/lyceum/qa/db'
+                        sh 'terraform init -upgrade'
                         sh 'terraform plan'
                         
                         
