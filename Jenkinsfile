@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     def AWS_ACCOUNT = params.awsProfile
-                    System.out.println("AWS Profile used is ", AWS_ACCOUNT)
+                    println("AWS Profile used is ", AWS_ACCOUNT)
                     
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
@@ -43,7 +43,7 @@ pipeline {
                         
                         //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
                         
-                        System.out.println("Snapshot created: ", snapshotId)
+                        println("Snapshot created: ", snapshotId)
                     }
                 }  
                 
