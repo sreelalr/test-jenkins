@@ -27,8 +27,10 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
-                    def snapShot = 'for-qa-' + new Date().format('yyyy-MM-dd')
-                    print(snapShot)
+                    def snapshotId = 'for-qa-' + new Date().format('yyyy-MM-dd')
+                    print(snapShotId)
+                    
+                    aws rds create-db-snapshot --db-snapshot-identifier "$snapshotId" --db-instance-identifier "$params.dbId" --region "$params.awsRegion"
                     //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
                     //print(snapshotId)
                 }  
