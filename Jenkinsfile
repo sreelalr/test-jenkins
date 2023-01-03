@@ -55,7 +55,7 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                         credentialsId: "${params.awsProfile}"
                     ]]) {
-                        sh 'cd expose/infra/lyceum/qa/db'
+                        sh 'cd infra/lyceum/qa/db'
                         sh 'terraform plan'
                         
                         
