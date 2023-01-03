@@ -14,7 +14,7 @@ pipeline {
             steps {
                  script{
                         
-                          git branch: "main", credentialsId: "git", url: "https://github.com/sreelalr/demo-tf.git"
+                          git branch: "master", credentialsId: "git", url: "https://github.com/area9innovation/expose.git"
                         
                     }
                 }
@@ -55,6 +55,10 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                         credentialsId: "${params.awsProfile}"
                     ]]) {
+                        sh 'cd expose/infra/lyceum/qa/db'
+                        sh 'terraform plan'
+                        
+                        
                         //sh 'terraform init -upgrade'
                 
                         //sh 'terraform taint aws_db_instance.qa_replica3'
