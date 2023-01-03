@@ -29,7 +29,7 @@ pipeline {
         stage('Upgrade QA DB from the latest snapshot') {
             steps {
                 script {
-                    //sleep(time: 300, unit: "SECONDS")
+                    sleep(time: 30, unit: "SECONDS")
                 
                     //sh 'terraform init -upgrade'
                 
