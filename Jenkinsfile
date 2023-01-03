@@ -28,12 +28,13 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
-                    
+                    def AWS_ACCOUNT = params.awsProfile
+                    print(AWS_ACCOUNT)
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                        credentialsId: '${params.awsProfile}'
+                        credentialsId: '${AWS_ACCOUNT}'
                     ]]) {
                         def snapshotId = 'for-qa-' + new Date().format('yyyy-MM-dd')
                         print(snapshotId)
