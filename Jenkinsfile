@@ -29,19 +29,21 @@ pipeline {
             steps {
                 script {
                     def AWS_ACCOUNT = params.awsProfile
-                    print(AWS_ACCOUNT)
+                    print("AWS Profile used is ", AWS_ACCOUNT)
+                    
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                        credentialsId: "${params.awsProfile}"
+                        credentialsId: "${AWS_ACCOUNT}"
                     ]]) {
                         def snapshotId = 'for-qa-' + new Date().format('yyyy-MM-dd')
-                        print(snapshotId)
                     
                         sh "aws rds create-db-snapshot --db-snapshot-identifier '$snapshotId' --db-instance-identifier '$params.dbId' --region '$params.awsRegion'"
+                        
                         //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
-                        //print(snapshotId)
+                        
+                        print("Snapshot created: snapshotId)
                     }
                 }  
                 
