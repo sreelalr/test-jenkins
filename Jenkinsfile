@@ -21,7 +21,7 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
-                    def snapshotId = sh(script: 'python3 snapshot.py us-west-2',returnStdout: true)
+                    def snapshotId = sh(script: "python3 snapshot.py 'us-west-2'",returnStdout: true)
                     print(snapshotId)
                 }  
                 
