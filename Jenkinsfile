@@ -55,18 +55,19 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                         credentialsId: "${params.awsProfile}"
                     ]]) {
-                        sh 'cd infra/lyceum/qa/db'
-                        sh 'terraform init -upgrade'
-                        sh 'terraform plan'
+                        dir( "infra/lyceum/qa/db"){
+                            
+                            sh 'terraform init -upgrade'
+                            sh 'terraform plan'
                         
-                        
-                        //sh 'terraform init -upgrade'
+                            //sh 'terraform init -upgrade'
                 
-                        //sh 'terraform taint aws_db_instance.qa_replica3'
+                            //sh 'terraform taint aws_db_instance.qa_replica3'
                 
-                        //sh 'terraform taint aws_db_instance.qa_replica2'
+                            //sh 'terraform taint aws_db_instance.qa_replica2'
                 
-                        //sh 'terraform apply --auto-approve'
+                            //sh 'terraform apply --auto-approve'
+                        }    
                     }   
                 }
             }
