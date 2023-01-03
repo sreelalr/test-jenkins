@@ -4,14 +4,15 @@ pipeline {
     
     parameters{
             string(defaultValue: 'us-west-2', description: 'aws region', name: 'awsRegion')
-            string(defaultValue: 'hp-altuscare',description: 'db identifier', name: 'dbId')
+            string(defaultValue: 'hp-altuscare', description: 'db identifier', name: 'dbId')
+            choice(choices["innovation", "lyceum"], description: 'aws profile selection', name: 'awsProfie'
     }
     
 
-    environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-    }
+    //environment {
+        //AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        //AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+    //}
 
     stages {
         stage('Checkout') {
@@ -27,12 +28,20 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
-                    def snapshotId = 'for-qa-' + new Date().format('yyyy-MM-dd')
-                    print(snapshotId)
                     
-                    sh "aws rds create-db-snapshot --db-snapshot-identifier '$snapshotId' --db-instance-identifier '$params.dbId' --region '$params.awsRegion'"
-                    //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
-                    //print(snapshotId)
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding', 
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                        credentialsId: '$params.awsProfile'
+                    ]]) {
+                        def snapshotId = 'for-qa-' + new Date().format('yyyy-MM-dd')
+                        print(snapshotId)
+                    
+                        sh "aws rds create-db-snapshot --db-snapshot-identifier '$snapshotId' --db-instance-identifier '$params.dbId' --region '$params.awsRegion'"
+                        //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
+                        //print(snapshotId)
+                    }
                 }  
                 
             }
