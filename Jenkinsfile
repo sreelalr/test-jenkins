@@ -3,16 +3,11 @@ pipeline {
     
     
     parameters{
-            string(defaultValue: 'us-west-2', description: 'aws region', name: 'awsRegion')
-            string(defaultValue: 'hp-altuscare', description: 'db identifier', name: 'dbId')
+        
             choice(choices: ["innovation", "lyceum"], description: 'aws profile selection', name: 'awsProfile')
+            choice(choices: ["us-east-1", "us-west-2", "eu-central-1"], description: 'aws region', name: 'awsRegion')
+            string(defaultValue: 'hp-altuscare', description: 'db identifier', name: 'dbId')
     }
-    
-
-    //environment {
-        //AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        //AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-    //}
 
     stages {
         stage('Checkout') {
@@ -54,13 +49,20 @@ pipeline {
                 script {
                     sleep(time: 30, unit: "SECONDS")
                 
-                    //sh 'terraform init -upgrade'
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding', 
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                        credentialsId: "${AWS_ACCOUNT}"
+                    ]]) {
+                        //sh 'terraform init -upgrade'
                 
-                    //sh 'terraform taint aws_db_instance.qa_replica3'
+                        //sh 'terraform taint aws_db_instance.qa_replica3'
                 
-                    //sh 'terraform taint aws_db_instance.qa_replica2'
+                        //sh 'terraform taint aws_db_instance.qa_replica2'
                 
-                    //sh 'terraform apply --auto-approve'
+                        //sh 'terraform apply --auto-approve'
+                    }   
                 }
             }
         }
