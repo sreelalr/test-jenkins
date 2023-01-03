@@ -1,5 +1,20 @@
 pipeline {
     agent any
+    
+    properties([
+        parameters([
+            stringParam(
+            defaultValue: 'us-west-2',
+            description: 'aws region',
+            name: 'aws-region'
+            ),
+            stringParam(
+            defaultValue: 'hp-altuscare',
+            description: 'db identifier',
+            name: 'db id'
+            ),
+        ])
+     ])
 
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
