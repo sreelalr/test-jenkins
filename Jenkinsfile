@@ -2,18 +2,10 @@ pipeline {
     agent any
     
     
-        parameters([
-            stringParam(
-            defaultValue: 'us-west-2',
-            description: 'aws region',
-            name: 'aws-region'
-            ),
-            stringParam(
-            defaultValue: 'hp-altuscare',
-            description: 'db identifier',
-            name: 'db id'
-            ),
-        ])
+    parameters{
+            string(defaultValue: 'us-west-2', description: 'aws region', name: 'awsRegion')
+            string(defaultValue: 'hp-altuscare',description: 'db identifier', name: 'dbId')
+    }
     
 
     environment {
@@ -36,7 +28,7 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
-                    def snapshotId = sh(script: "python3 snapshot.py 'us-west-2'",returnStdout: true)
+                    def snapshotId = sh(script: 'python3 snapshot.py params.awsRegion params.dbId',returnStdout: true)
                     print(snapshotId)
                 }  
                 
