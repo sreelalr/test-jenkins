@@ -27,6 +27,7 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
+                    println new Date().format('yyyy-MM-dd a')
                     def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
                     print(snapshotId)
                 }  
