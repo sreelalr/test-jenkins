@@ -47,7 +47,8 @@ pipeline {
         stage('Upgrade QA DB from the latest snapshot') {
             steps {
                 script {
-                    sleep(time: 30, unit: "SECONDS")
+                    
+                    //sleep(time: 300, unit: "SECONDS")
                 
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
@@ -65,6 +66,8 @@ pipeline {
                             //sh 'terraform taint aws_db_instance.qa_replica3'
                 
                             //sh 'terraform taint aws_db_instance.qa_replica2'
+                            
+                            //sleep(time: 300, unit: "SECONDS")
                 
                             //sh 'terraform apply --auto-approve'
                         }    
