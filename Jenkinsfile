@@ -23,18 +23,18 @@ pipeline {
         stage('Create snapshot') {
             steps {
                 script {
-                    def AWS_ACCOUNT = params.awsProfile
-                    println("AWS Profile used is " + AWS_ACCOUNT)
+                
+                    println("AWS Profile used is " + params.awsProfile)
                     
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding', 
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                        credentialsId: "${AWS_ACCOUNT}"
+                        credentialsId: "${params.awsProfile}"
                     ]]) {
                         def snapshotId = 'for-qa-' + new Date().format('yyyy-MM-dd')
                     
-                        sh "aws rds create-db-snapshot --db-snapshot-identifier '$snapshotId' --db-instance-identifier '$params.dbId' --region '$params.awsRegion'"
+                        //sh "aws rds create-db-snapshot --db-snapshot-identifier '$snapshotId' --db-instance-identifier '$params.dbId' --region '$params.awsRegion'"
                         
                         //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
                         
@@ -53,7 +53,7 @@ pipeline {
                         $class: 'AmazonWebServicesCredentialsBinding', 
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                        credentialsId: "${AWS_ACCOUNT}"
+                        credentialsId: "${params.awsProfile}"
                     ]]) {
                         //sh 'terraform init -upgrade'
                 
