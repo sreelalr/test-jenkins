@@ -5,7 +5,7 @@ pipeline {
     parameters{
             string(defaultValue: 'us-west-2', description: 'aws region', name: 'awsRegion')
             string(defaultValue: 'hp-altuscare', description: 'db identifier', name: 'dbId')
-            choice(choices: ["innovation", "lyceum"].join("\n"), description: 'aws profile selection', name: 'awsProfie')
+            choice(choices: ["innovation", "lyceum"], description: 'aws profile selection', name: 'awsProfie')
     }
     
 
