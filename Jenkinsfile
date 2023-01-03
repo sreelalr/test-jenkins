@@ -43,7 +43,7 @@ pipeline {
                         
                         //def snapshotId = sh(script: "python3 snapshot.py '$params.awsRegion' '$params.dbId'",returnStdout: true)
                         
-                        print("Snapshot created: snapshotId)
+                        print("Snapshot created: ", snapshotId)
                     }
                 }  
                 
