@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
                  script{
                         
@@ -17,23 +17,28 @@ pipeline {
                 }
             }
         
-        stage('Plan') {
+        stage('Create snapshot') {
             steps {
-                //sh 'terraform init -upgrade'
-                
-                //sh 'terraform apply --auto-approve'
-                
-                //sleep(time: 300, unit: "SECONDS")
-              
-                
-                //sh 'terraform destroy --auto-approve'
-                
-                //sh 'python3 snapshot.py'
                 script {
                     def snapshotId = sh(script: 'python3 snapshot.py',returnStdout: true)
                     print(snapshotId)
-                }    
+                }  
                 
+            }
+        }
+        stage('Upgrade QA DB from the latest snapshot') {
+            steps {
+                script {
+                    //sleep(time: 300, unit: "SECONDS")
+                
+                    //sh 'terraform init -upgrade'
+                
+                    //sh 'terraform taint aws_db_instance.qa_replica3'
+                
+                    //sh 'terraform taint aws_db_instance.qa_replica2'
+                
+                    //sh 'terraform apply --auto-approve'
+                }
             }
         }
     }
